@@ -21,8 +21,8 @@ template_2 = ChatPromptTemplate.from_messages([
 chain_template = template | chat
 chain_message = template_2 | chat
 
-#response_template =chain_template.invoke({"subject":"chicken"})
-#print(response_template.content)
+response_template =chain_template.invoke({"subject":"chicken"})
+print(response_template.content)
 
 response_message =chain_message.stream({"input":"dog"})
 for chunks in response_message:
