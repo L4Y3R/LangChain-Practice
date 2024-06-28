@@ -5,7 +5,7 @@ from langchain_fireworks import ChatFireworks
 
 llm=ChatFireworks(
     model="accounts/fireworks/models/mixtral-8x7b-instruct",
-    temperature=0 #not the one you think
+    temperature=0
 )
 
 response_normal=llm.invoke("Hello. Tell me abot fireworks") 
