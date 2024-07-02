@@ -59,4 +59,4 @@ def json_output_parser():
         "format": parser.get_format_instructions()
     })
 
-print(json_output_parser())
+print(type(json_output_parser()))
