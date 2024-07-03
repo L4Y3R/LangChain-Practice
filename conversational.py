@@ -14,7 +14,7 @@ def doc_from_web(url):
     loader = WebBaseLoader(url)
     docs = loader.load()
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size=200,
+        chunk_size=400,
         chunk_overlap=20,
     )
     splitDocs = splitter.split_documents(docs)
@@ -42,7 +42,7 @@ def create_chain(vectorStore):
         prompt=template
     )
 
-    retriver = vectorStore.as_retriever()
+    retriver = vectorStore.as_retriever(search_kwargs={"k": 3})
     retrieval_chain = create_retrieval_chain(
         retriver,
         chain
@@ -50,14 +50,18 @@ def create_chain(vectorStore):
 
     return retrieval_chain
 
-docs = doc_from_web('https://python.langchain.com/v0.2/docs/introduction/')
-vectorStore = create_db(docs)
-chain = create_chain(vectorStore)
+def chat(chain, question):
+    response= chain.invoke({
+        "input": question
+        })
 
+    return response["answer"]
 
+if __name__ == "__main__":  
+    docs = doc_from_web('https://www.pinecone.io/learn/series/langchain/langchain-expression-language/')
+    vectorStore = create_db(docs)
+    chain = create_chain(vectorStore)
 
-response= chain.invoke({
-    "input": "What is LCEL"
-    })
-
-print(response["context"])
+    human = input ("You: ")
+    response = chat(chain, human)
+    print("AI: ", response)
