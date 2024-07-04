@@ -21,6 +21,8 @@ memory = ConversationBufferMemory(
     return_messages=True,
 )
 
+
+# depricated import of LLMChain
 chain = memory | template | llm
 
 msg = {
