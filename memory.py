@@ -29,5 +29,5 @@ msg = {
     "input": "What is the meaning of life?"
 }
 
-response = chain.invoke(msg)
+response = chain.stream(msg)
 print(response)
